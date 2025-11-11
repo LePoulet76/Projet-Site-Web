@@ -11,5 +11,8 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.15",
     "tailwindcss-cli": "^0.1.2"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.9.5"
   }
 }

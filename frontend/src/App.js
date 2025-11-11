@@ -1,13 +1,22 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// Import des pages
+import Home from "./pages/home";
+import InGame from "./pages/InGame";
+// import Footer from "./components/Footer";
+
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-600 mb-4">
-        Hello Tailwind 👋
-      </h1>
-      <p className="text-lg text-gray-700">
-        Si tu vois ce message, tout fonctionne parfaitement !
-      </p>
-    </div>
+    <Router>
+      <main className="flex-1 p-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/ingame" element={<InGame />} />
+        </Routes>
+      </main>
+      {/* <Footer /> */}
+    </Router>
   );
 }
 
