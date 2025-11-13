@@ -13,7 +13,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/ingame" element={<InGame />} />
-          <Route path="/wave" element={<wave />}/>
         </Routes>
       </main>
       {/* <Footer /> */}

@@ -65,6 +65,7 @@ export default function ChatPage() {
           Envoyer
         </button>
       </form>
+      <Waveform audioUrl="/content/musics/anime/SAO.mp3" /> 
     </div>
   );
 }
