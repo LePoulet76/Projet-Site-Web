@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Waveform from "../components/Waveform";
 
 export default function Home() {
   return (
