@@ -12,6 +12,8 @@ function App() {
       <main className="flex-1 p-4">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/lobbyCreation" element={<lobbyCreation/>} />
+          <Route path="/hub" element={<hub/>} />
           <Route path="/ingame" element={<InGame />} />
         </Routes>
       </main>

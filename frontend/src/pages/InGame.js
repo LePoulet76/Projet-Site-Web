@@ -4,6 +4,17 @@ import Waveform from "../components/Waveform";
 
 const socket = io("http://localhost:3001");
 
+
+/*
+Logique jeu :
+Point : 5, 3, 1
+*/
+initialGameState = 
+{
+  phase : "LOBBY",
+  player : [,],
+  round : 0,
+}
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
