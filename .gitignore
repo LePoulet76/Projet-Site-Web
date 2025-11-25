@@ -1,0 +1,20 @@
+# Dépendances (C'est le plus important !)
+node_modules/
+*/node_modules/
+
+# Fichiers de production (build)
+dist/
+build/
+
+# Logs et caches
+*.log
+.cache/
+.eslintcache
+
+# Fichiers système (Mac/Windows)
+.DS_Store
+Thumbs.db
+
+# Fichiers d'environnement (pour la sécurité)
+.env
+.env.local
