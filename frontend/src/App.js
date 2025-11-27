@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Import des pages
 import Home from "./pages/home";
 import InGame from "./pages/InGame";
+import Inscription from "./pages/Inscription.js";
 // import Footer from "./components/Footer";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/lobbyCreation" element={<lobbyCreation/>} />
           <Route path="/hub" element={<hub/>} />
           <Route path="/ingame" element={<InGame />} />
+          <Route path="/inscription" element={<Inscription />} />
         </Routes>
       </main>
       {/* <Footer /> */}
