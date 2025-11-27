@@ -1,0 +1,12 @@
+ouvrir powershell en admin
+aller dans le fichier du projet:
+cd $HOME\Desktop
+cd .\Projet-Site-Web\ 
+
+1. Enregistrer Localement	Assurer que tes dernières modifications sont en sécurité dans un commit local.	1. git add . (Ajoute tous les fichiers modifiés/créés à la zone de staging.) 2. git commit -m "Message clair et concis" (Enregistre l'état du code.)
+
+2. Mettre à Jour main	Récupérer les derniers travaux des autres développeurs.	1. git switch main (Va sur la branche principale.) 2. git pull origin main (Télécharge et fusionne les nouveautés du serveur.)
+
+3. Mettre à Jour ta Branche	Intégrer les mises à jour du main dans ta branche de travail.	1. git switch ma-branche (Reviens sur ta branche.) 2. git merge main (Applique les commits du main dans ta branche.) → Si des conflits apparaissent, tu dois les résoudre manuellement avant de continuer.
+
+4. Pousser tes Changements	Sauvegarder ta branche mise à jour sur le serveur.	git push (Envoie tous les nouveaux commits de ta branche sur le serveur. Pas de --force ici !)
