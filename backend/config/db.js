@@ -1,25 +1,55 @@
-// 1. Charger dotenv
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({ path: './mdp.env' });
+import mysql from "mysql2/promise";
 
 
-// 2. Importer mysql2
-import mysql from "mysql2";
-
-
-// 3. Créer un pool de connexion
+// Créer un pool de connexion
 const db = mysql.createPool({
-host: process.env.DB_HOST,
-user: process.env.DB_USER,
-password: process.env.DB_PASSWORD,
-database: process.env.DB_NAME,
-port: process.env.DB_PORT,
-connectionLimit: 10,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
+    connectionLimit: 10,
 });
 
 
-// 4. Vérification de la connexion
+//Vérification de la connexion avec la BDD
+async function testBDDConnection()
+{
+    try
+    {
+        const connection = await db.getConnection()
+        connection.release();
+        console.log("Connection réussie avec la BDD");
+    }
+    catch(error) 
+    {
+       
+        console.error(" ÉCHEC FATAL DE CONNEXION BDD. ERREUR SPÉCIFIQUE :", error); 
+        process.exit(1);
+    }
+}
+testBDDConnection();
 
+// fonction pour recup un user par son email 
+export async function getUserByEmail(email)
+{
+    const[mail]= await db.execute('SELECT id, username, password, email FROM users WHERE email = ?',[email]);
+     if (mail.length > 0) {
+        // Retourne le premier résultat trouvé
+        return mail[0];
+    } else {
+        // Retourne undefined si le tableau est vide (aucun utilisateur trouvé)
+        return undefined;
+    }
+}
 
-// 5. Exportation
+//fonction pour créer un user dans la BDD
+export async function createUser(email,hashedPassword)
+{
+    const [result] = await db.execute('INSERT INTO users (email, password) VALUES (?, ?)',[email, hashedPassword]);
+    return result.insertId;
+}
+
 export default db;

@@ -35,7 +35,7 @@ export default function Inscription() {
         axios.post();
         try{
             //ici on changera le post quand on fera tourner tout ca sur le serveur 
-            const answer = await axios.post("http://localhost:3001",{email,password});
+            const answer = await axios.post("http://localhost:3001/api/register",{email,password});
             alert("Compte créer avec succès");
         }
         catch{
