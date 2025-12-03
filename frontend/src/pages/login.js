@@ -13,17 +13,16 @@ utilisateur local : site, mdp : tableauDeTChicken123#
 
 port sql : 3306
 
-d'abord inscription envoie à server et la logique des fonctions utilisées dans server est dans db
+
 */
 
-export default function Inscription() {
+export default function Login() {
     //on créer les variable qui vont stocker l'email le mdp si il y a une erreur et si le formulaire est en cours d'envoi
     const[email,setEmail] = useState('');
     const[password,setPassword] = useState('');
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [pseudo, setPseudo] = useState('');
-
+     const [pseudo, setPseudo] = useState('');
     //evite de recharger la page par defaut + vérifie que les champs sont remplis
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,8 +35,8 @@ export default function Inscription() {
         axios.post();
         try{
             //ici on changera le post quand on fera tourner tout ca sur le serveur 
-            const answer = await axios.post("http://localhost:3001/api/register",{email,password,pseudo});
-            alert("Compte créer avec succès");
+            const answer = await axios.post("http://localhost:3001/api/login",{email,password});
+            alert("Connection avec succès");
         }
         catch{
             setError(error.reponse?.data?.error||"Erreur Serveur");
@@ -45,22 +44,18 @@ export default function Inscription() {
     };
     return (
         <form onSubmit={handleSubmit}>
-            <h1>Inscription</h1>
+            <h1>Login</h1>
             <label htmlFor = "email"> Email :</label>
             <input type = "email" id="email" name="email" onChange={(e) => setEmail(e.target.value)} required />
-            
-            <label htmlFor = "pseudo">Pseudo :</label>
-            <input type = "text" id="pseudo" name ="pseudo" onChange={(e) => setPseudo(e.target.value)} required />
-            
+            <input htmlFor = "pseudo">Pseudo :</input>
+            <label type = "text" id="pseudo" name ="pseudo" onChange={(e) => setPseudo(e.target.value)} required />
             <label htmlFor  ="password"> Mot de passe :</label>
             <input type="password" id="password" name="password" size = "20"  onChange={(e) => setPassword(e.target.value)}  required />
-            
-            <button type="submit"> S'inscrire </button>
+            <button type="submit">Se connecter</button>
             {error && <p className="error">{error}</p>}
-            <p> Déjà un compte ? <Link to ="/login"> Connectez-vous </Link> </p>
-            
+            <p>Pas de compte ?<Link to ="/inscription">Créer un compte</Link> </p>
+            <p><Link to = "/forgotpassword">Mot de passe oublié</Link></p>
         </form>
     );
 }
-
    

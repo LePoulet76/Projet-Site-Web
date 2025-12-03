@@ -44,11 +44,21 @@ export async function getUserByEmail(email)
         return undefined;
     }
 }
-
-//fonction pour créer un user dans la BDD
-export async function createUser(email,hashedPassword)
+export async function getUserByPseudo(pseudo)
 {
-    const [result] = await db.execute('INSERT INTO users (email, password) VALUES (?, ?)',[email, hashedPassword]);
+    const[user]= await db.execute('SELECT id, username, password, email FROM users WHERE username = ?',[pseudo]);
+     if (user.length > 0) {
+        // Retourne le premier résultat trouvé
+        return user[0];
+    } else {
+        // Retourne undefined si le tableau est vide (aucun utilisateur trouvé)
+        return undefined;
+    }
+}
+//fonction pour créer un user dans la BDD
+export async function createUser(email,hashedPassword,pseudo)
+{
+    const [result] = await db.execute('INSERT INTO users (email, password, username) VALUES (?, ?, ?)',[email, hashedPassword,pseudo]);
     return result.insertId;
 }
 
