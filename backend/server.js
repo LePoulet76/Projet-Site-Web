@@ -5,6 +5,8 @@ import cors from "cors";
 //import mysql from 'mysql2/promise';
 import db, { getUserByEmail, createUser, getUserByPseudo } from './config/db.js';
 import bcrypt from 'bcrypt';//pour hacher les mdp
+import jwt from 'jsonwebtoken'; //pour gérer les sessions sur le site pour pouvoir rester connecté entre les pages
+const JWT_SECRET = process.env.JWT_SECRET || "Art1307PezBel#"
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -78,10 +80,13 @@ app.post('/api/register',async (req,res)=> {
 
         //on fait l'inscription 
         const userId = await createUser(email,hashedPassword,pseudo);
-        
+
+        //on gère la connection une fois l'user créé
+        const token = jwt.sign({ id: userId, username: pseudo, email: email },JWT_SECRET)
+
         //on renvoie que le truc c'est bien passé
         console.log("Inscription terminée");
-        return res.status(201).json({message:"Compte créer avec succès."})
+        return res.status(201).json({message:"Compte créer avec succès.", token : token, user : { id: userId, username: pseudo, email: email }});
       }
     }
 
@@ -93,6 +98,36 @@ app.post('/api/register',async (req,res)=> {
   }
 
 });
+
+//conection 
+app.post('/api/login',async (req,res) =>
+{
+  const {email, password} = req.body;
+  if(!email || !password)
+  {
+    return res.status(400).json({error:"L'email et le mot de passe sont obligatoires."});
+  }
+  try
+  {
+    let user = await getUserByEmail(email);
+    if(!user)
+    {
+      return res.status(401).json({error:"Indentifiants invalides."});
+    }
+    const VerifPassword = await bcrypt.compare(password,user.password); // ici on vérifie le mot de passe entré avec le mdp de l'utilisateur lié à l'email entré
+    if(!VerifPassword)
+    {
+      return res.status(401).json({error:"Indentifiants invalides."});
+    }
+
+  }
+  catch
+  {
+    console.error("Erreur lors de la connection : ",error);
+    return res.status(500).json({error:"Erreur lors de la connection"});
+  }
+}
+);
 
 const PORT = 3001;
 server.listen(PORT, () =>

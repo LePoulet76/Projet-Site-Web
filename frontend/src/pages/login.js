@@ -24,15 +24,15 @@ export default function Login() {
     const [isSubmitting, setIsSubmitting] = useState(false);
      const [pseudo, setPseudo] = useState('');
     //evite de recharger la page par defaut + vérifie que les champs sont remplis
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+        setError('');
         if(email === '' || password === '' || pseudo ===''){
             setError('Veuillez remplir tous les champs');
             return;
         }
         
         setIsSubmitting(true);
-        axios.post();
         try{
             //ici on changera le post quand on fera tourner tout ca sur le serveur 
             const answer = await axios.post("http://localhost:3001/api/login",{email,password});
@@ -40,10 +40,12 @@ export default function Login() {
         }
         catch{
             setError(error.reponse?.data?.error||"Erreur Serveur");
+        }finally{
+            setIsSubmitting(false);
         }
     };
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
             <h1>Login</h1>
             <label htmlFor = "email"> Email :</label>
             <input type = "email" id="email" name="email" onChange={(e) => setEmail(e.target.value)} required />

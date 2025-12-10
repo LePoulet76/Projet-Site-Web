@@ -58,7 +58,7 @@ export async function getUserByPseudo(pseudo)
 //fonction pour créer un user dans la BDD
 export async function createUser(email,hashedPassword,pseudo)
 {
-    const [result] = await db.execute('INSERT INTO users (email, password, username) VALUES (?, ?, ?)',[email, hashedPassword,pseudo]);
+    const [result] = await db.execute('INSERT INTO users (email, password, username,pdp) VALUES (?, ?, ?)',[email, hashedPassword,pseudo]);
     return result.insertId;
 }
 

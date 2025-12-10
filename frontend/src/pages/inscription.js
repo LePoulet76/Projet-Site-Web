@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // pour gérer le changement de page auto 
 /*
 nom database : blindtest
 table1 : anime (contient id(clef primaire), auteur , anime, name_song)
@@ -23,6 +24,7 @@ export default function Inscription() {
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [pseudo, setPseudo] = useState('');
+    const navigate = useNavigate();
 
     //evite de recharger la page par defaut + vérifie que les champs sont remplis
     const handleSubmit = async (e) => {
@@ -33,11 +35,13 @@ export default function Inscription() {
         }
         
         setIsSubmitting(true);
-        axios.post();
         try{
             //ici on changera le post quand on fera tourner tout ca sur le serveur 
             const answer = await axios.post("http://localhost:3001/api/register",{email,password,pseudo});
+            const{token} = answer.data;
+            sessionStorage.setItem('userToken',token);
             alert("Compte créer avec succès");
+            navigate('/');//on retourne à la page d'accueil 
         }
         catch{
             setError(error.reponse?.data?.error||"Erreur Serveur");
