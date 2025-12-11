@@ -93,7 +93,7 @@ app.post('/api/register',async (req,res)=> {
   }
   catch(error)//si ca fonctionne pas on renvoie un message d'erreur
   {
-    console.error("Erreur lors de la connection à la BDD ou lors de l'inscription");
+    console.error("Erreur détaillée lors de l'inscription :", error);
     return res.status(500).json({error :"Une erreur lors de la connection à la BDD ou lors de l'inscription"});
   }
 
@@ -121,9 +121,9 @@ app.post('/api/login',async (req,res) =>
     }
 
   }
-  catch
+  catch(error)
   {
-    console.error("Erreur lors de la connection : ",error);
+    console.error("Erreur détaillée lors de l'inscription :", error);
     return res.status(500).json({error:"Erreur lors de la connection"});
   }
 }

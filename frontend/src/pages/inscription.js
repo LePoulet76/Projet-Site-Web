@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // pour gérer le changement de page auto 
+import { useInfoJoueur } from './InfoJoueurContext';//pour pouvoir se connecter au context et donc pouvoir mettre les données du joueur en commun 
 /*
 nom database : blindtest
 table1 : anime (contient id(clef primaire), auteur , anime, name_song)
@@ -24,8 +25,8 @@ export default function Inscription() {
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [pseudo, setPseudo] = useState('');
-    const navigate = useNavigate();
-
+    const navigate = useNavigate();//Pour pouvoir naviguer entre les pages
+    const {connecterJoueur} = useInfoJoueur(); 
     //evite de recharger la page par defaut + vérifie que les champs sont remplis
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,13 +39,15 @@ export default function Inscription() {
         try{
             //ici on changera le post quand on fera tourner tout ca sur le serveur 
             const answer = await axios.post("http://localhost:3001/api/register",{email,password,pseudo});
-            const{token} = answer.data;
-            sessionStorage.setItem('userToken',token);
+            const{token,user} = answer.data;
+            connecterJoueur(user,token);
             alert("Compte créer avec succès");
             navigate('/');//on retourne à la page d'accueil 
         }
-        catch{
-            setError(error.reponse?.data?.error||"Erreur Serveur");
+        catch(err){
+            setError(err.response?.data?.error||"Erreur Serveur");
+        }finally{
+            setIsSubmitting(false);
         }
     };
     return (
