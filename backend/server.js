@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
   // Message de chat reçu
   socket.on("chat message", (msg) => {
     console.log("Message reçu :", msg);
-    io.emit("chat message", msg);
+    socket.broadcast.emit("chat message", msg);
   });
 
   // Déconnexion
