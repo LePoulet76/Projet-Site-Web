@@ -41,35 +41,35 @@ export default function ChatComponent({socket}) {
 
   return (
     <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Chat</h1>
-
-      <div className="border rounded p-4 h-80 overflow-y-auto bg-gray-50 mb-4">
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={`mb-2 p-2 rounded ${msg.type === "connect"
-                ? "text-green-600 text-center"
-                : msg.type === "disconnect"
+      <div className="border border-[#8c6558] w-1/2 h-80 bg-white/40 overflow-y-auto p-4 rounded">
+          {messages.map((msg, i) => (
+            <div
+              key={i}
+              className={`mb-2 p-2 rounded ${
+                msg.type === "connect"
+                  ? "text-green-600 text-center"
+                  : msg.type === "disconnect"
                   ? "text-red-600 text-center"
                   : "bg-gray-200 text-gray-800 text-left"
               }`}
-          >
-            {msg.type === "chat" ? msg.text : <em>{msg.text}</em>}
-          </div>
-        ))}
-      </div>
+            >
+              {msg.type === "chat" ? msg.text : <em>{msg.text}</em>}
+            </div>
+          ))}
+        </div>
 
-      <form onSubmit={sendMessage} className="flex gap-2">
-        <input
-          className="flex-1 border rounded p-2"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Écris ton message..."
-        />
-        <button className="bg-blue-600 text-white px-4 py-2 rounded">
-          Envoyer
-        </button>
-      </form>
+        {/* Chat input */}
+        <form onSubmit={sendMessage} className="flex gap-2 w-1/2">
+          <input
+            className="flex-1 border rounded p-2"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Écris ton message..."
+          />
+          <button className="bg-blue-600 text-white px-4 py-2 rounded">
+            Envoyer
+          </button>
+        </form>
     </div>
   );
 }
