@@ -48,7 +48,7 @@ export default function Home() {
     </Link>
 
     <Link
-            to="/ingame"
+            to="/lobbycreation"
             className="absolute bottom-80 left-10 text-white px-6 py-3 rounded-lg text-lg transition"
             style={{ backgroundColor: '#FF69B4' }} // rose vif
           >

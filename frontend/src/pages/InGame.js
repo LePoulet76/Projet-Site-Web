@@ -1,6 +1,8 @@
 import Waveform from "../components/Waveform";
 import ChatComponent from "../components/Tchat";
 import { socket } from "../socket";
+import ScoreBoard from "../components/ScoreBoard";
+
 
 export default function InGame() {
 
@@ -26,8 +28,9 @@ export default function InGame() {
 
       <div className="flex-1 flex flex-col items-center justify-start p-6 gap-6 overflow-y-auto">
         {/* Top avatars + squares */}
+        <ScoreBoard players={[]} socket={socket} />
         <ChatComponent socket={socket}/>
-        <Waveform audioUrl="/content/musics/anime/SAO.mp3" />
+        <Waveform audioUrl="/content/musics/anime/LISA,adamas.mp3" />
       </div>
        </div>
       {/* BARRE EN BAS */}

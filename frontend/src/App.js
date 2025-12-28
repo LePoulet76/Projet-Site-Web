@@ -6,7 +6,7 @@ import Home from "./pages/home";
 import InGame from "./pages/InGame";
 import Inscription from "./pages/inscription";
 import Login from "./pages/login";
-import lobbyCreation from "./pages/lobbyCreation";
+import LobbyCreation from "./pages/lobbyCreation";
 import { InfoJoueurProvider } from "./pages/InfoJoueurContext";
 
 // import Footer from "./components/Footer";
@@ -18,7 +18,7 @@ function App() {
       <main className="flex-1 p-4">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/lobbyCreation" element={<lobbyCreation />} />
+          <Route path="/lobbycreation" element={<LobbyCreation />} />
           <Route path="/ingame" element={<InGame />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/login" element={<Login />} />

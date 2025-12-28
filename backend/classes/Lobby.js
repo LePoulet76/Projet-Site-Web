@@ -3,16 +3,18 @@ class Lobby {
     this.id = id;
     this.hostSocket = hostSocket;
     this.io = ioInstance;
-    this.players = [];
+    this.players = new Map();
     this.round = 0;
     this.maxRounds = 21;
     this.currentSong = null;
+    this.name = null;
+    this.password = null;
     this.LobbyState = "waiting"; // waiting, inGame, ended
     }
 
     addPlayer(player) {
         socket.join(this.id) // le joueur rejoint la room du lobby
-        this.players.push(player); 
+        this.players.set(player); 
     }
     removePlayer(playerSocketId) {
         if(this.players.has(playerSocketId)){

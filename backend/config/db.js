@@ -61,5 +61,12 @@ export async function createUser(email,hashedPassword,pseudo)
     const [result] = await db.execute('INSERT INTO users (email, password, username) VALUES (?, ?, ?)',[email, hashedPassword,pseudo]);
     return result.insertId;
 }
+export async function getMixOfSongs(genre, limit) {
+    const [rows] = await db.execute(
+        'SELECT * FROM ? LIMIT ?',
+        [genre, limit]
+    );
+    return rows;
+}
 
 export default db;

@@ -9,6 +9,7 @@ class Player {
         this.socketId = this.socketId;
         this.pseudo = pseudo;
         this.score = score;
+        this.hasAnswered = false;
         this.profilePicture = profilePictureLink;
         this.listOfJokers = [];
     }
@@ -27,7 +28,7 @@ class Player {
         this.score -= points;
     }
     getScore() {
-        return this.score; 
+        return this.score;
     }
     addJoker(joker) {
         this.listOfJokers.push(joker);
@@ -41,4 +42,4 @@ class Player {
         return false;
     }
 }
-export { Player };
+export default { Player };
