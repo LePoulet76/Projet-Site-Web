@@ -112,13 +112,15 @@ app.post('/api/login',async (req,res) =>
     let user = await getUserByEmail(email);
     if(!user)
     {
-      return res.status(401).json({error:"Indentifiants invalides."});
+      return res.status(401).json({error:"Identifiants invalides."});
     }
     const VerifPassword = await bcrypt.compare(password,user.password); // ici on vérifie le mot de passe entré avec le mdp de l'utilisateur lié à l'email entré
     if(!VerifPassword)
     {
-      return res.status(401).json({error:"Indentifiants invalides."});
+      return res.status(401).json({error:"Identifiants invalides."});
     }
+    const token = jwt.sign({ id: user.id, username: user.username, email: user.email },JWT_SECRET)
+    return  res.status(200).json({message:"Connexion réussie.", token : token, user : { id: user.id, username: user.username, email: user.email }});
 
   }
   catch(error)
