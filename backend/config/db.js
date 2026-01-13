@@ -69,4 +69,34 @@ export async function getMixOfSongs(genre, limit) {
     return rows;
 }
 
+export async function createLobbie(id,nomLobby,max_joueurs,rounds,genre,playerName,password,socket)
+{
+    const [result] = await db.execute('INSERT INTO lobbies (id, nom_lobby, max_joueurs, nb_tours, genre, mot_de_passe) VALUES (?, ?, ?, ?, ?, ?)',[id, nomLobby, max_joueurs, rounds, genre, null]);
+    const [inster] = await db.execute('INSERT INTO joueurs (lobby_id, socket_id, pseudo, est_hote, score) VALUES (?, ?, ?, ?, ?)',[id, socket, playerName, 1, 0]);
+    return result.insertId;
+}
+
+
+export async function verifIDLobby(IDLobby,socket,pseudo) 
+{
+    console.log("Vérification de l'ID du lobby dans la BDD :", IDLobby);
+    console.log("Socket ID du joueur :", socket);
+    console.log("Pseudo du joueur :", pseudo);
+    const [result] = await db.execute('SELECT id FROM lobbies WHERE id = ?',[IDLobby]);
+    if(result.length > 0)
+    {
+        const [inster] = await db.execute('INSERT INTO joueurs (id, lobby_id, socket_id, pseudo, est_hote, score) VALUES (?, ?, ?, ?, ?, ?)',[null, IDLobby, socket, pseudo, 0, 0]);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+export async function getScoreboard(lobbyId)
+{
+    const [rows] = await db.execute('SELECT pseudo, score FROM joueurs WHERE lobby_id = ? ORDER BY score DESC',[lobbyId]);
+    return rows;
+}
 export default db;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { socket } from "../socket";
+import { useInfoJoueur } from "./InfoJoueurContext";
 import { useNavigate } from "react-router-dom";
 
 export default function LobbyCreation() {
@@ -7,9 +8,9 @@ export default function LobbyCreation() {
     const [maxJoueurs, setMaxJoueurs] = useState(10);
     const [nbTours, setNbTours] = useState(20);
     const [genre, setGenre] = useState("Anime");
-    const [motDePasse, setMotDePasse] = useState("");
     const navigate = useNavigate();
-    
+    const { joueur } = useInfoJoueur();
+    console.log("CONTENU COMPLET DE JOUEUR :", joueur);
     const changement = (e) => {
         e.preventDefault(); //PAS DE RECHARGEMENT DE PAGE BORDEL
         const settings = {
@@ -17,8 +18,7 @@ export default function LobbyCreation() {
             maxPlayers: maxJoueurs,
             rounds: nbTours,
             genre: genre,
-            playerName: "Host", //A recuperer depuis le fichier de Emma
-            password: motDePasse
+            playerName: joueur?.username || "Hôte"
         };
         socket.emit("create_lobby", settings);
     };
@@ -60,12 +60,6 @@ export default function LobbyCreation() {
                         <option>Film</option>
                         <option>Serie</option>
                     </select>
-                    <input 
-                        type="text" 
-                        value={motDePasse}
-                        onChange={(e) => setMotDePasse(e.target.value)}/>
-                    <label className="block text-gray-700 mb-2 mt-4">Genre Musical</label>
-                    <input type="text" className="w-full p-2 border border-gray-300 rounded" />
                 </div>
                 <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Créer le BlindTest</button>
             </form>

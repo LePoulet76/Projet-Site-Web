@@ -2,10 +2,12 @@ import Waveform from "../components/Waveform";
 import ChatComponent from "../components/Tchat";
 import { socket } from "../socket";
 import ScoreBoard from "../components/ScoreBoard";
+import { useParams } from "react-router-dom";
 
 
 export default function InGame() {
-
+  const { lobbyId } = useParams();
+  
   return (
      <div className="flex h-screen w-screen bg-[#eac7c0]">
       {/* Left sidebar */}

@@ -49,8 +49,8 @@ export default function Login() {
             <h1>Login</h1>
             <label htmlFor = "email"> Email :</label>
             <input type = "email" id="email" name="email" onChange={(e) => setEmail(e.target.value)} required />
-            <input htmlFor = "pseudo">Pseudo :</input>
-            <label type = "text" id="pseudo" name ="pseudo" onChange={(e) => setPseudo(e.target.value)} required />
+            <label htmlFor = "pseudo">Pseudo :</label>
+            <input type = "text" id="pseudo" name ="pseudo" onChange={(e) => setPseudo(e.target.value)} required />
             <label htmlFor  ="password"> Mot de passe :</label>
             <input type="password" id="password" name="password" size = "20"  onChange={(e) => setPassword(e.target.value)}  required />
             <button type="submit">Se connecter</button>
