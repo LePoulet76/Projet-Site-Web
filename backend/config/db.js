@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
-dotenv.config({ path: './mdp.env' });
-import mysql from "mysql2/promise";
-import levenshtein from 'fast-levenshtein';
+dotenv.config({ path: './mdp.env' });//fichier mdp.env contient les informations de connection à la BDD
+import mysql from "mysql2/promise";//sert à communiquer avec le Node.js
+import levenshtein from 'fast-levenshtein';//sert à comparer la ressemblance de 2 chaines de caractère
 
 // Créer un pool de connexion
 const db = mysql.createPool({
@@ -56,6 +56,7 @@ export async function getUserByPseudo(pseudo)
     }
 }
 
+//fonction pour attribuer un token à l'utilisateur pour quand il veut changer de mot de passe 
 export async function saveResetToken(userId,code,expires)
 {
     const query = "UPDATE users SET resetToken = ?,resetExpires =? Where id = ?";
