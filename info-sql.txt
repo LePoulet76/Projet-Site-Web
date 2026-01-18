@@ -1,0 +1,11 @@
+nom database : blindtest
+table1 : anime (contient id(clef primaire), auteur , anime, name_song)
+table2 : serie (contient id(clef primaire), auteur , serie, name_song)
+table3 : film (contient id(clef primaire), auteur , film, name_song)
+table4 : users (contient id(clef primaire), username, password, email,pdp,resetToken,resetExpires)
+table5 : game(state, round, players, scores) a finir
+
+utilisateur distant : lepoulet, mdp : Art1307pezBel# : ip du serveur : 49.13.235.112
+utilisateur local : site, mdp : tableauDeTChicken123#
+
+port sql : 3306
