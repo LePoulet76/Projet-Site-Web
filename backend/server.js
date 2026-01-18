@@ -1,4 +1,4 @@
-import express from "express";
+ailimport express from "express";
 import http, { get } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
@@ -17,8 +17,8 @@ const __dirname = path.dirname(__filename);
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'emmaorain@gmail.com', // Ton email Gmail
-    pass: 'oyoqilmursuksacz' // Code à 16 caractères généré par Google
+    user: 'emmaorain@gmail.com', // email depuis lequel sera envoyé le code pour changer de mot de passe 
+    pass: 'oyoqilmursuksacz' // Code à 16 caractères généré par Google quand on demande la double vérification pour notre application
   }
 });
 const JWT_SECRET = process.env.JWT_SECRET || "Art1307PezBel#"
@@ -246,7 +246,7 @@ app.post('/api/register',async (req,res)=> {
     {
       if(pseudoExists)
       {
-        //il y a déjà un user avec cet email 
+        //il y a déjà un user avec ce pseudo
         console.log('Pseudo déjà utilisé');
         return res.status(409).json({error : "Ce pseudo est déjà utilisé."});
       }
@@ -262,7 +262,7 @@ app.post('/api/register',async (req,res)=> {
         //on gère la connection une fois l'user créé
         const token = jwt.sign({ id: userId, username: pseudo, email: email },JWT_SECRET)
 
-        //on renvoie que le truc c'est bien passé
+        //on renvoie que l'inscription c'est bien passé
         console.log("Inscription terminée");
         return res.status(201).json({message:"Compte créer avec succès.", token : token, user : { id: userId, username: pseudo, email: email }});
       }
@@ -276,7 +276,7 @@ app.post('/api/register',async (req,res)=> {
   }
   
 });
-//gérer la modif du mdp
+//envoie du mail pour mettre à jour le mdp
 app.post('/api/forgot-password', async (req, res) => {
   const { email } = req.body;
   try{
@@ -306,7 +306,7 @@ app.post('/api/forgot-password', async (req, res) => {
     console.error("Erreur lors de la demande de réinitialisation du mot de passe :", error);
     return res.status(500).json({error:"Erreur lors de la demande de réinitialisation du mot de passe."});
   }});
-
+//modification du mot de passe 
 app.post('/api/reset-password-code', async (req, res) => {
   const { email, code, newPassword } = req.body;
   try {
