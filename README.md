@@ -20,4 +20,4 @@
   - Partie en jeux detruite en cas de rechargement
   - Les Joker ne marchent pas (pas eu le temps d'implémenter)
   - On peut repondre plusieurs fois à la meme question et avoir des points
-  - Coté base de données, les lobbies ne sont jamais nétoyés 
+  - Coté base de données, les lobbies ne sont jamais nettoyés 
